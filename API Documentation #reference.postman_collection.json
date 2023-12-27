@@ -1,0 +1,580 @@
+{
+	"info": {
+		"_postman_id": "fca931a3-9519-4dfd-b678-835b54d98c8e",
+		"name": "API Documentation #reference",
+		"description": "# basic documentation for assignment\n\n## Overview\n\nThis API allows for the management of employees and tasks within an organization. It supports operations such as creating, retrieving, updating, and deleting employees and tasks.\n\n## Authentication\n\nTask assignment and logout API require authenticaton. Token will be generated once you login. To authenticate, include the token in the `Authorization` header with the user `Token` keyword:  \nAuthorization: Token token_here\n\n## Endpoints\n\n### `/api/employees/`\n\n- `GET`: Retrieve a list of all employees.\n- `POST`: Create a new employee. Requires `name`, `email`, and `password` fields. The `is_lead` field is optional.\n    \n\n### `/api/employees/`\n\n- `GET`: Retrieve the details of the employee with the given ID.\n- `PUT`: Update the details of the employee with the given ID. Does not allow updating the `email` field.\n- `DELETE`: Delete the employee with the given ID.\n    \n\n### `/api/tasks/`\n\n- `GET`: Retrieve a list of all tasks.\n- `POST`: Create a new task. Requires `title` and `description` fields.\n    \n\n### `/api/tasks/`\n\n- `GET`: Retrieve the details of the task with the given ID.\n- `PUT`: Update the details of the task with the given ID.\n- `DELETE`: Delete the task with the given ID.\n    \n\n### `/api/tasks/assign/`\n\n- `POST`: Assign the task with the given ID to the employee with the given ID. Only leads can assign tasks, and they cannot assign tasks to other leads.",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "18922442",
+		"_collection_link": "https://www.postman.com/altimetry-specialist-23713510/workspace/assignment/collection/18922442-fca931a3-9519-4dfd-b678-835b54d98c8e?action=share&source=collection_link&creator=18922442"
+	},
+	"item": [
+		{
+			"name": "User",
+			"item": [
+				{
+					"name": "Logout",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Token 7ecd307391c93d391a192d520b40df31773f4337",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "localhost:8000/logout/",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"logout",
+								""
+							]
+						},
+						"description": "Gets information about the authenticated user."
+					},
+					"response": []
+				},
+				{
+					"name": "Login",
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "username",
+									"value": "prakash",
+									"type": "string"
+								},
+								{
+									"key": "password",
+									"value": "inkpen23",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\" : \"prakash02dec@gmail.com\" ,\r\n    \"password\" : \"prakash02\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8000/login/",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"login",
+								""
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"description": "The `/me` endpoints let you manage information about the authenticated user."
+		},
+		{
+			"name": "Employees",
+			"item": [
+				{
+					"name": "Get all employees",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8000/employees/",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"employees",
+								""
+							],
+							"query": [
+								{
+									"key": "workspace",
+									"value": "",
+									"description": "Optional. A workspace ID.",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get a employee by id",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8000/employees/2",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"employees",
+								"2"
+							],
+							"query": [
+								{
+									"key": "access_key",
+									"value": "{{accessKey}}",
+									"description": "Optional. A collection's read-only access key. Using this query parameter does not require an API key to call the endpoint.",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create a employee",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\" : \"ranveer\" ,\n    \"email\" : \"ranveer@gmail.com\" ,\n    \"password\" : \"ranveer02\"\n}"
+						},
+						"url": {
+							"raw": "localhost:8000/employees/",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"employees",
+								""
+							],
+							"query": [
+								{
+									"key": "workspace",
+									"value": "{{workspaceId}}",
+									"description": "Optional. A workspace ID in which to create the collection.\n\nIf you do not include this query parameter, the system creates the collection in your \"My Workspace\" workspace.",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update employee detail by id",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"prakash\",\n    \"email\": \"prakash02dec@gmail.com\" ,\n    \"is_lead\" : \"true\"\n}"
+						},
+						"url": {
+							"raw": "localhost:8000/employees/1",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"employees",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete a employee by  id",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "localhost:8000/employees/4",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"employees",
+								"4"
+							]
+						},
+						"description": "Deletes a collection."
+					},
+					"response": []
+				},
+				{
+					"name": "assignTask",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Token 7ecd307391c93d391a192d520b40df31773f4337",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "localhost:8000/employees/2/assignTask/1",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"employees",
+								"2",
+								"assignTask",
+								"1"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Tasks",
+			"item": [
+				{
+					"name": "Get all task",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8000/tasks/",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"tasks",
+								""
+							],
+							"query": [
+								{
+									"key": "workspace",
+									"value": "{{workspaceId}}",
+									"description": "Optional. A workspace ID.",
+									"disabled": true
+								}
+							]
+						},
+						"description": "Gets all of your [collections](https://www.getpostman.com/docs/collections). The response includes all of your subscribed collections."
+					},
+					"response": []
+				},
+				{
+					"name": "Get a task by id",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8000/tasks/2",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"tasks",
+								"2"
+							],
+							"query": [
+								{
+									"key": "access_key",
+									"value": "{{accessKey}}",
+									"description": "Optional. A collection's read-only access key. Using this query parameter does not require an API key to call the endpoint.",
+									"disabled": true
+								}
+							]
+						},
+						"description": "Gets information about a collection. For a complete list of this endpoint's possible values, use the [collection.json schema file](https://schema.postman.com/json/collection/v2.1.0/collection.json)."
+					},
+					"response": []
+				},
+				{
+					"name": "Create a task",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "\n{\n    \"title\": \"customer handling\",\n    \"deadline\": \"2023-12-15T00:00:00Z\",\n    \"description\": \"let go to work now\"\n}"
+						},
+						"url": {
+							"raw": "localhost:8000/tasks/",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"tasks",
+								""
+							],
+							"query": [
+								{
+									"key": "workspace",
+									"value": "{{workspaceId}}",
+									"description": "Optional. A workspace ID in which to create the collection.\n\nIf you do not include this query parameter, the system creates the collection in your \"My Workspace\" workspace.",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update task detail",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"title\" : \"new year party\" ,\n    \"description\" : \"let do the party tonight\" ,\n    \"deadline\" : \"2023-12-27T00:00:00Z\" \n}"
+						},
+						"url": {
+							"raw": "localhost:8000/tasks/1",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"tasks",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete a task",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "localhost:8000/tasks/4",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"tasks",
+								"4"
+							]
+						},
+						"description": "Deletes a collection."
+					},
+					"response": []
+				}
+			],
+			"description": "The `/collections` endpoints let you manage your [collections](https://learning.postman.com/docs/sending-requests/intro-to-collections/)."
+		}
+	],
+	"auth": {
+		"type": "apikey",
+		"apikey": [
+			{
+				"key": "key",
+				"value": "X-API-Key",
+				"type": "string"
+			},
+			{
+				"key": "value",
+				"value": "{{token}}",
+				"type": "string"
+			}
+		]
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "baseUrl",
+			"value": "https://farming-simulator.pstmn.io"
+		}
+	]
+}
